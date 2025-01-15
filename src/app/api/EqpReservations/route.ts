@@ -12,10 +12,8 @@ export async function GET() {
     const table = reader.getTable("EqpReservations");
 
     return Response.json({
-        column: table.getColumnNames(),
-        data: table.getData(),
+      data: table.getData(),
     });
-
   } catch (error) {
     console.error("Failed reading files: ", error);
     return Response.json({ message: "Failed reading files: ", error });
