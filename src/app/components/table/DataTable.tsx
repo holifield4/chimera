@@ -11,28 +11,29 @@ type TableProps<T> = {
   columns: Column<T>[];
 };
 
-const DataTable = <T extends { id: number }>({
+const DataTable = <T, >({
   data,
   columns
 }: TableProps<T>) => {
   return (
-    <div className="text-xs h-full overflow-auto">
+    <div className="text-xs h-full overflow-auto border-b">
       <table className="min-w-full max-w-full">
         <TableHeader columns={columns} />
         <tbody>
           {data.length > 0 ? (
-            data.map((row) => (
+            data.map((row, index) => (
               <TableRow
-                key={row.id}
+                key={index}
                 row={row}
+                id={index}
                 columns={columns}
               />
             ))
           ) : (
             <tr>
-              <td colSpan={9} className="w-full h-[250px] border borderClass">
+              <td colSpan={data.length} className="w-full h-[250px] border">
                 <div className="w-full h-full flex flex-col items-center justify-center">
-                  <p className="text-lg text-gray-400 dark:text-gray-300">No Data Found...</p>
+                  <p className="text-lg text-gray-400">No Data Found...</p>
                 </div>
               </td>
             </tr>
@@ -50,11 +51,12 @@ const TableHeader = <T,>({ columns }: TableHeaderProps<T>) => {
   return (
     <thead>
       <tr className="sticky top-0 z-40">
+        <th className="p-3 border-x text-primary bg-accent">No.</th>
         {columns.map((column) => {
           return (
             <th
               key={String(column.key)}
-              className="p-3 border borderClass text-left bg-slate-100 dark:bg-slate-500 transition-colors"
+              className="p-3 border-x text-left text-primary bg-accent"
             >
               {column.header}
             </th>
@@ -68,13 +70,16 @@ const TableHeader = <T,>({ columns }: TableHeaderProps<T>) => {
 type TableRowProps<T> = {
   row: T;
   columns: Column<T>[];
+  id: number;
 };
-const TableRow = <T extends { id: number }>({
+const TableRow = <T, >({
   row,
-  columns
+  columns,
+  id
 }: TableRowProps<T>) => {
   return (
-    <tr key={row.id}>
+    <tr key={id} className={`${id % 2 === 0 && "bg-gray-100"}`}>
+      <td className="border p-3 text-center font-semibold">{id+1}.</td>
       {columns.map((column) => {
         return (
           <TableCell
@@ -84,28 +89,6 @@ const TableRow = <T extends { id: number }>({
           />
         );
       })}
-      {/* <td className="border borderClass p-3">
-        <div className="w-full flex gap-2.5 justify-center">
-          <Button
-            type="text"
-            className="text-slate-900 dark:text-slate-50"
-            icon={<Icon icon="eye" />}
-            onClick={() => onView(row.id)}
-          />
-          <Button
-            type="text"
-            className="text-slate-900 dark:text-slate-50"
-            icon={<Icon icon="edit" />}
-            onClick={() => onUpdate(row.id)}
-          />
-          <Button
-            type="text"
-            className="text-slate-900 dark:text-slate-50"
-            icon={<Icon icon="trash" />}
-            onClick={() => onDelete(row.id)}
-          />
-        </div>
-      </td> */}
     </tr>
   );
 };
@@ -116,7 +99,7 @@ type TableCellProps<T> = {
 };
 const TableCell = <T,>({ value, render }: TableCellProps<T>) => {
   return (
-    <td className="border borderClass p-3">
+    <td className="border p-3">
       {render ? render(value) : String(value)}
     </td>
   );
