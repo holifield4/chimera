@@ -3,15 +3,11 @@ import { IconCheck } from "../lib/icon/Check";
 import { XMark } from "../lib/icon/XMark";
 import { PlcControlInterface } from "../lib/interfaces/plc.interface";
 
+export const dynamic = 'force-dynamic'
+
 export default async function PlcControl() {
-  const data: PlcControlInterface[] = await fetch(
-    "http://localhost:3000/api/getplccontrol"
-  )
-    .then(async (data) => {
-      let response = await data.json();
-      return response.data;
-    })
-    .catch((error) => console.error("Error fetching data:", error));
+  const response = await fetch("http://localhost:3000//api/getplccontrol").then((res) => res.json());
+  const data: PlcControlInterface[] = await response.data;
 
   const columns: Column<PlcControlInterface>[] = [
     { key: "DeviceName", header: "Device Name" },

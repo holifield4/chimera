@@ -4,7 +4,7 @@ import "./globals.css";
 import NavBar from "./components/navbar/NavBar";
 import Footer from "./components/footer/Footer";
 
-const inter = Inter();
+const inter = Inter({subsets: ['latin']});
 
 export const metadata: Metadata = {
   title: "Holifield William",

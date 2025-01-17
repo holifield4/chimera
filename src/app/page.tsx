@@ -4,15 +4,11 @@ import { IconCheck } from "./lib/icon/Check";
 import { XMark } from "./lib/icon/XMark";
 import { EqpReservationInterface } from "./lib/interfaces/eqp.interface";
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
-  const data: EqpReservationInterface[] = await fetch(
-    "http://localhost:3000/api/geteqpreservations"
-  )
-    .then(async (data) => {
-      let response = await data.json();
-      return response.data;
-    })
-    .catch((error) => console.error("Error fetching data:", error));
+  const response = await fetch("http://localhost:3000/api/geteqpreservations").then((res) => res.json());
+  const data: EqpReservationInterface[] = await response.data;
 
   const columns: Column<EqpReservationInterface>[] = [
     { key: "BookSNo", header: "Book's No." },
@@ -41,11 +37,7 @@ export default async function Home() {
     {
       key: "DeactTime",
       header: "Deactive Time",
-      render: (value) => (
-        <span>
-          {String(DateTimeHelper(value))}
-        </span>
-      ),
+      render: (value) => <span>{String(DateTimeHelper(value))}</span>,
     },
     {
       key: "CardEnable",
