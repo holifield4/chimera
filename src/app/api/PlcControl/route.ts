@@ -12,7 +12,6 @@ export async function GET() {
     const table = reader.getTable("PLCControl");
 
     return Response.json({
-        column: table.getColumnNames(),
         data: table.getData(),
     });
 
