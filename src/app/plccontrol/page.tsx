@@ -5,7 +5,7 @@ import { PlcControlInterface } from "../lib/interfaces/plc.interface";
 
 export default async function PlcControl() {
   const data: PlcControlInterface[] = await fetch(
-    "http://localhost:3000/api/plccontrol"
+    "http://localhost:3000/api/getplccontrol"
   )
     .then(async (data) => {
       let response = await data.json();

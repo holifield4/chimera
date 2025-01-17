@@ -6,7 +6,7 @@ import { EqpReservationInterface } from "./lib/interfaces/eqp.interface";
 
 export default async function Home() {
   const data: EqpReservationInterface[] = await fetch(
-    "http://localhost:3000/api/eqpreservations"
+    "http://localhost:3000/api/geteqpreservations"
   )
     .then(async (data) => {
       let response = await data.json();
