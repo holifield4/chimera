@@ -31,7 +31,7 @@ const DataTable = <T, >({
             ))
           ) : (
             <tr>
-              <td colSpan={data.length} className="w-full h-[250px] border">
+              <td colSpan={columns.length+1} className="w-full h-[250px] border">
                 <div className="w-full h-full flex flex-col items-center justify-center">
                   <p className="text-lg text-gray-400">No Data Found...</p>
                 </div>
