@@ -12,9 +12,8 @@ export async function GET() {
     const table = reader.getTable("PLCControl");
 
     return Response.json({
-        data: table.getData(),
+      data: table.getData(),
     });
-
   } catch (error) {
     return Response.json({ message: "Failed reading files: ", error });
   }
