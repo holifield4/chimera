@@ -27,12 +27,7 @@ export default async function Home() {
     {
       key: "ActTime",
       header: "Active Time",
-      render: (value) =>
-        value ? (
-          <IconCheck className="w-full text-accent" />
-        ) : (
-          <XMark className="w-full text-red-600" />
-        ),
+      render: (value) => <span>{String(DateTimeHelper(value))}</span>,
     },
     {
       key: "DeactTime",
